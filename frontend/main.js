@@ -4,7 +4,7 @@ $(function (){
 	var $city = $('#city');
 
 	function addCity(city_data) {
-		$cities.append(`<tr><td><img src="http://openweathermap.org/img/w/${city_data.icon}.png" alt="Image"></td> <td><b>${city_data.city}</b><br/> ${city_data.temperature} F <br />${city_data.description}</td></tr>`);
+		$cities.append(`<tr><td><img src="http://openweathermap.org/img/w/${city_data.icon}.png" alt="Image"></td> <td><b>${city_data.city}</b><br/> ${city_data.temperature}°C <br />${city_data.description}</td></tr>`);
 	}
 
 	$.ajax({
@@ -30,10 +30,12 @@ $(function (){
 			url: 'https://uisnrbk429.execute-api.eu-west-1.amazonaws.com/dev/weather',
 			data: JSON.stringify(addcity),
 			success: function (city_data){
-				addCity(city_data);
+				if(city_data){
+					addCity(city_data);
+				}
 			},
 			error: function (){
-				alert('error saving new city');
+				alert('error saving new city, check if it already exists');
 			}
 		});
 	});
